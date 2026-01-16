@@ -1,0 +1,15 @@
+services:
+  securedatashare:
+    image: ghcr.io/projectmakersde/securedatashare:latest
+    container_name: securedatashare
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8101}:8101"
+    volumes:
+      - /mnt/secureDataShare/uploads:/uploads
+    environment:
+      - PORT=${PORT:-8101}
+      - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-50}
+      - MAX_FILES=${MAX_FILES:-10}
+      - MAX_TEXT_LENGTH=${MAX_TEXT_LENGTH:-4096}
+      - UPLOAD_FOLDER=/uploads
