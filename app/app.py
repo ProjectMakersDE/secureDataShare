@@ -41,20 +41,20 @@ def upload():
 
     # Validate name
     if not name:
-        return jsonify({'success': False, 'error': 'Name ist erforderlich'}), 400
+        return jsonify({'success': False, 'error': 'Name is required'}), 400
 
     # Validate text length
     if len(text) > MAX_TEXT_LENGTH:
-        return jsonify({'success': False, 'error': f'Text darf maximal {MAX_TEXT_LENGTH} Zeichen haben'}), 400
+        return jsonify({'success': False, 'error': 'Message is too long'}), 400
 
     # Validate file count
     actual_files = [f for f in files if f.filename]
     if len(actual_files) > MAX_FILES:
-        return jsonify({'success': False, 'error': f'Maximal {MAX_FILES} Dateien erlaubt'}), 400
+        return jsonify({'success': False, 'error': 'Too many files'}), 400
 
     # Check if there's anything to upload
     if not actual_files and not text:
-        return jsonify({'success': False, 'error': 'Mindestens eine Datei oder Text erforderlich'}), 400
+        return jsonify({'success': False, 'error': 'Please provide at least a file or a message'}), 400
 
     # Create folder with sanitized name
     folder_name = sanitize_name(name)
@@ -96,8 +96,7 @@ def upload():
 
     return jsonify({
         'success': True,
-        'message': f'Erfolgreich hochgeladen: {len(saved_files)} Datei(en)',
-        'folder': os.path.basename(folder_path)
+        'message': 'Successfully submitted'
     })
 
 
@@ -106,7 +105,7 @@ def request_entity_too_large(error):
     """Handle file too large error."""
     return jsonify({
         'success': False,
-        'error': f'Datei zu gross. Maximum: {MAX_FILE_SIZE_MB} MB pro Datei'
+        'error': 'File too large'
     }), 413
 
 

@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const newFiles = Array.from(files);
 
         if (currentCount + newFiles.length > MAX_FILES) {
-            showStatus(`Maximal ${MAX_FILES} Dateien erlaubt. Aktuell: ${currentCount}`, 'error');
+            showStatus(`Maximum ${MAX_FILES} files allowed`, 'error');
             return;
         }
 
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="file-name" title="${escapeHtml(file.name)}">${escapeHtml(file.name)}</span>
                 <div class="flex items-center gap-3">
                     <span class="file-size">${formatFileSize(file.size)}</span>
-                    <span class="remove-btn" data-index="${index}" title="Entfernen">
+                    <span class="remove-btn" data-index="${index}" title="Remove">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -147,12 +147,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Validation
         if (!name) {
-            showStatus('Bitte geben Sie einen Namen ein', 'error');
+            showStatus('Please enter a name', 'error');
             return;
         }
 
         if (selectedFiles.files.length === 0 && !text) {
-            showStatus('Bitte laden Sie mindestens eine Datei hoch oder geben Sie einen Text ein', 'error');
+            showStatus('Please provide at least a file or a message', 'error');
             return;
         }
 
@@ -183,10 +183,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateFileList();
                 charCount.textContent = '0';
             } else {
-                showStatus(result.error || 'Ein Fehler ist aufgetreten', 'error');
+                showStatus(result.error || 'An error occurred', 'error');
             }
         } catch (error) {
-            showStatus('Verbindungsfehler. Bitte versuchen Sie es erneut.', 'error');
+            showStatus('Connection error. Please try again.', 'error');
         } finally {
             setLoading(false);
         }
